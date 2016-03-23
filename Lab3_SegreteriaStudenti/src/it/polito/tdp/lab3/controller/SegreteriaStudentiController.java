@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import it.polito.tdp.lab3.model.Corso;
 import it.polito.tdp.lab3.model.SegreteriaStudentiModel;
+import it.polito.tdp.lab3.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -66,11 +67,30 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doLogin(ActionEvent event) {
+    	btnLogin.setDisable(true);
+    	if(txtMatricola.getText().compareTo("")==0){
+    		txtRes.setText("ERRORE: Inserisci la matricola");
+    		return;
+    	}
+    		
+    	Studente s=model.cercaStudente(txtMatricola.getText());
+    	if(s==null){
+    		txtRes.setText("ERRORE: Studente assente");
+    		return;
+    	}
+    	txtNome.setText(s.getNome());;
+    	txtCognome.setText(s.getCognome());
 
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	txtNome.clear();
+    	txtCognome.clear();
+    	txtMatricola.clear();
+    	txtRes.clear();
+    	cmbCorso.setValue(null);
+    	btnLogin.setDisable(false);
 
     }
 
