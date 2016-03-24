@@ -25,4 +25,9 @@ public class SegreteriaStudentiModel {
 		return cD.iscrittiAcorso(c);
 	}
 
+	public List<Corso>corsiStudente(Studente s){
+		StudenteDAO sD=new StudenteDAO();
+		return sD.corsiStudente(s);
+	}	
+	
 }

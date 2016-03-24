@@ -60,8 +60,23 @@ public class SegreteriaStudentiController {
     @FXML
     void doCerca(ActionEvent event) {
     	
-    	if(cmbCorso.getValue()==null&&txtMatricola.getText().compareTo("")!=0){
+    	
+    	if(cmbCorso.getValue().getCrediti()==-1&&txtMatricola.getText().compareTo("")!=0){
     		//ELENCO CORSI SEGUITI DA STUDENTE X
+    		Studente s=this.checkStudente();
+    		if(s==null)
+    			return;
+    		String str="";
+    		try {
+				for(Corso c:model.corsiStudente(s)){
+					str+=c.stampati()+"\n";    			
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				txtRes.setText("NESSUN CORSO SEGUITO");
+			}
+    		txtRes.setText(str);
     		
     		
     		
@@ -105,20 +120,7 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doLogin(ActionEvent event) {
-    	btnLogin.setDisable(true);
-    	if(txtMatricola.getText().compareTo("")==0){
-    		txtRes.setText("ERRORE: Inserisci la matricola");
-    		return;
-    	}
-    		
-    	Studente s=model.cercaStudente(txtMatricola.getText());
-    	if(s==null){
-    		txtRes.setText("ERRORE: Studente assente");
-    		return;
-    	}
-    	txtNome.setText(s.getNome());;
-    	txtCognome.setText(s.getCognome());
-
+    	this.checkStudente();
     }
 
     @FXML
@@ -130,6 +132,23 @@ public class SegreteriaStudentiController {
     	cmbCorso.setValue(null);
     	btnLogin.setDisable(false);
 
+    }
+    
+    public Studente checkStudente(){
+    	btnLogin.setDisable(true);
+    	if(txtMatricola.getText().compareTo("")==0){
+    		txtRes.setText("ERRORE: Inserisci la matricola");
+    		return null;
+    	}
+    		
+    	Studente s=model.cercaStudente(txtMatricola.getText());
+    	if(s==null){
+    		txtRes.setText("ERRORE: Studente assente");
+    		return null;
+    	}
+    	txtNome.setText(s.getNome());;
+    	txtCognome.setText(s.getCognome());
+    	return s;
     }
 
     @FXML

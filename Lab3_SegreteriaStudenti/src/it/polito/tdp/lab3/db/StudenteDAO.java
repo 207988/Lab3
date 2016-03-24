@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.polito.tdp.lab3.model.Corso;
 import it.polito.tdp.lab3.model.Studente;
@@ -40,5 +42,34 @@ public class StudenteDAO {
 			e.printStackTrace();
 		}		
 		return s;
+	}
+	
+	public List<Corso> corsiStudente(Studente s){
+		List<Corso>temp=new ArrayList<Corso>();
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(jdbcURL);
+			
+			Statement st = conn.createStatement();
+			
+			String sql= String.format("SELECT C.codins,C.crediti,C.nome,C.pd FROM studente S,iscrizione I, corso C WHERE C.codins=I.codins AND S.matricola=I.matricola AND S.matricola='%s'", s.getMatricola());
+			
+			
+			ResultSet res=st.executeQuery(sql);
+			
+			while(res.next()){
+				temp.add(new Corso(res.getString("codins"),res.getInt("crediti"),res.getString("nome"),res.getString("pd")));
+			}
+			
+			
+			res.close();
+			conn.close();
+			return temp;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return null;
 	}
 }

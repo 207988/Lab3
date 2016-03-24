@@ -64,10 +64,7 @@ public class CorsoDAO {
 	}
 	
 	
-	/* SELECT S.matricola,S.cognome,S.nome,S.CDS
-	FROM studente S,corso C,iscrizione I
-	WHERE I.matricola=S.matricola AND C.codins=I.codins AND I.codins='iscrizione'
-	*/
+	
 	 
 	 
 	 

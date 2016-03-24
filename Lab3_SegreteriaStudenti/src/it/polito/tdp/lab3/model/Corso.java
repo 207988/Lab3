@@ -36,6 +36,9 @@ public class Corso {
 		return this.nomeCorso;
 	}
 	
+	public String stampati(){
+		return codCorso+"  "+crediti+"  "+nomeCorso+"  "+pD;
+	}
 	
 	
 	
