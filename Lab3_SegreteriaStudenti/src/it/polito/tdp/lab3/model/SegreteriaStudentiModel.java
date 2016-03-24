@@ -19,5 +19,10 @@ public class SegreteriaStudentiModel {
 		StudenteDAO sD=new StudenteDAO();			
 		return sD.cercaStudente(matricola);
 	}
+	
+	public List<Studente>iscrittiAcorso(Corso c){
+		CorsoDAO cD=new CorsoDAO();
+		return cD.iscrittiAcorso(c);
+	}
 
 }

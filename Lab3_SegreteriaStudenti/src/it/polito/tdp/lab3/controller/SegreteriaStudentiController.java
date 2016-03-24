@@ -1,6 +1,8 @@
 package it.polito.tdp.lab3.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.lab3.model.Corso;
@@ -57,12 +59,48 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCerca(ActionEvent event) {
+    	
+    	if(cmbCorso.getValue()==null&&txtMatricola.getText().compareTo("")!=0){
+    		//ELENCO CORSI SEGUITI DA STUDENTE X
+    		
+    		
+    		
+    	}
+    	if(cmbCorso.getValue()==null){
+    		txtRes.setText("CORSO NON SELEZIONATO");
+    		return;
+    	}
+    	
+    	if(cmbCorso.getValue()!=null&&txtMatricola.getText().compareTo("")!=0){
+    		//STUDENTE S ISCRITTO A CORSO C
+    		
+    		
+    	}    	
+    	else{
+    		//ELENCO STUDENTI ISCRITTI A CORSO C    		
+    		List<Studente> temp=null;
+			try {
+				temp = new ArrayList<Studente>(model.iscrittiAcorso(cmbCorso.getValue()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				txtRes.setText("NESSUNO STUDENTE ISCRITTO AL CORSO");
+			}  
+			String s="";
+			for(Studente st:temp){
+				s+=st+"\n";
+			}
+    		txtRes.setText(s);
+    		return;
+    		
+    	}
 
     }
 
     @FXML
     void doIscrivi(ActionEvent event) {
-
+    		
+    	
     }
 
     @FXML

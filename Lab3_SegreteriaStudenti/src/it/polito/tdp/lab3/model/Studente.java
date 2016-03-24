@@ -30,6 +30,14 @@ public class Studente {
 	public String getcDs() {
 		return cDs;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return matricola+"   "+cognome+"   "+nome+"   "+cDs;
+	}
+	
+	
 	
 	
 	

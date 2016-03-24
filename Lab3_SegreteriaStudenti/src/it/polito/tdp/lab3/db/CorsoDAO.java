@@ -36,6 +36,33 @@ public class CorsoDAO {
 		return null;
 	}
 	
+	public List<Studente>iscrittiAcorso(Corso c){
+		List<Studente>temp=new ArrayList<Studente>();
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(jdbcURL);
+			
+			Statement st = conn.createStatement();
+			
+			String sql= String.format("SELECT S.matricola,S.cognome,S.nome,S.CDS FROM studente S,corso C,iscrizione I WHERE I.matricola=S.matricola AND C.codins=I.codins AND I.codins='%s'", c.getCodCorso());
+			
+			ResultSet res=st.executeQuery(sql);
+			
+			while(res.next()){				
+				temp.add(new Studente(res.getString("matricola"),res.getString("nome"),res.getString("cognome"),res.getString("CDS")));
+			}
+			res.close();
+			conn.close();
+			return temp;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null;
+	}
+	
 	
 	/* SELECT S.matricola,S.cognome,S.nome,S.CDS
 	FROM studente S,corso C,iscrizione I
