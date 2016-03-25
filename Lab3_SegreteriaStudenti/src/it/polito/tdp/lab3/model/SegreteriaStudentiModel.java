@@ -28,6 +28,16 @@ public class SegreteriaStudentiModel {
 	public List<Corso>corsiStudente(Studente s){
 		StudenteDAO sD=new StudenteDAO();
 		return sD.corsiStudente(s);
-	}	
+	}
+	
+	public boolean studenteCorso(Studente s,Corso c){
+		StudenteDAO sD=new StudenteDAO();
+		return sD.studenteCorso(s, c);
+	}
+	
+	public boolean iscriviStudente(Studente s,Corso c){
+		CorsoDAO cD=new CorsoDAO();
+		return cD.iscriviStudente(s, c);
+	}
 	
 }

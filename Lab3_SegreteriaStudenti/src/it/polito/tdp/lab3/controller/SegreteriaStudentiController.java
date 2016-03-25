@@ -86,8 +86,16 @@ public class SegreteriaStudentiController {
     		return;
     	}
     	
-    	if(cmbCorso.getValue()!=null&&txtMatricola.getText().compareTo("")!=0){
+    	if(cmbCorso.getValue()!=null&&txtMatricola.getText().compareTo("")!=0&&cmbCorso.getValue().getCrediti()!=-1){
     		//STUDENTE S ISCRITTO A CORSO C
+    		Corso c=cmbCorso.getValue();
+    		Studente s= this.checkStudente();
+    		if(s==null)
+    			return;
+    		if(model.studenteCorso(s, c))
+    			txtRes.setText(String.format("%s %s (%s) e' iscritto a \"%s\"", s.getNome(),s.getCognome(),s.getMatricola(),c.getNomeCorso()));
+    		else
+    			txtRes.setText(String.format("%s %s (%s) non e' iscritto a \"%s\"", s.getNome(),s.getCognome(),s.getMatricola(),c.getNomeCorso()));
     		
     		
     	}    	
@@ -114,7 +122,22 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doIscrivi(ActionEvent event) {
-    		
+    	Studente s=this.checkStudente();
+    	if(s==null)
+    		return;
+    	Corso c=cmbCorso.getValue();
+    	if(c==null||c.getCrediti()==-1){
+    		txtRes.setText("SELEZIONA UN CORSO VALIDO PER L'ISCRIZIONE");
+    		return;
+    	}
+    	if(model.studenteCorso(s, c)){
+    		txtRes.setText("STUDENTE GIA' ISCRITTO A CORSO");
+    		return;
+    	}
+    	if(model.iscriviStudente(s, c)){
+    		txtRes.setText(String.format("%s %s (%s) e' stato iscritto a \"%s\"", s.getNome(),s.getCognome(),s.getMatricola(),c.getNomeCorso()));
+    		return;
+    	}
     	
     }
 

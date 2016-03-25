@@ -63,6 +63,34 @@ public class CorsoDAO {
 		return null;
 	}
 	
+	public boolean iscriviStudente(Studente s,Corso c){
+		
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(jdbcURL);
+			
+			Statement st = conn.createStatement();
+			
+			String sql= String.format("INSERT INTO iscrizione VALUES('%s','%s')",s.getMatricola(),c.getCodCorso());
+			
+			if(st.executeUpdate(sql)==1){
+				conn.close();
+				return true;
+			}
+			else{
+				conn.close();
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		
+		return false;
+	}
+	
 	
 	
 	 
